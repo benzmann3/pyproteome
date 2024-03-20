@@ -45,6 +45,7 @@ RE_DESCRIPTION = re.compile(
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|[\dA-Za-z\-]+\|)?'
+    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
     r' ?[\dA-Za-z_\-\:]+ (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
 ) # ADDED SUPPORT FOR OX=|
 CONFIDENCE_MAPPING = {1: 'Low', 2: 'Medium', 3: 'High'}
@@ -396,7 +397,7 @@ def _get_proteins(df, cursor, pd_version):
             try:
                 matches = RE_DESCRIPTION.match(prot_string)
                 desc = RE_DESCRIPTION.match(prot_string)
-                desc = desc.group(12)
+                desc = desc.group(15)
             except:
                 print(prot_string)
                 raise
