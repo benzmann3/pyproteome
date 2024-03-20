@@ -24,9 +24,9 @@ RE_DISCOVERER_ACCESSION = re.compile(
     r'(ref\|([\dA-Za-z\._]+)\|)?'
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
-    r'(sp\|([\dA-Za-z\-]+)\|)?'
+    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?' # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|([\dA-Za-z\-]+)\|)?
     r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
-    r' ?([\dA-Za-z_\:\-]+)(?:_[\dA-Za-z]+)? .+$' # Added pattern for pig trypsin
+    r' ?([\dA-Za-z_\:\-]+) .+$' 
 )
 
 UNIPROT_DATA = {}
