@@ -44,7 +44,7 @@ RE_DESCRIPTION = re.compile(
     r'(ref\|([\dA-Za-z\._]+)\|)?'
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
-    r'(sp\|[\dA-Za-z\-]+\|)?'
+    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?' # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
     r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
     r' ?[\dA-Za-z_\-\:]+(?:_[\dA-Za-z]+)? (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
 ) # ADDED SUPPORT FOR OX=|, pig trypsin
@@ -397,7 +397,7 @@ def _get_proteins(df, cursor, pd_version):
             try:
                 matches = RE_DESCRIPTION.match(prot_string)
                 desc = RE_DESCRIPTION.match(prot_string)
-                desc = desc.group(15)
+                desc = desc.group(16) # CHANGED TO GROUP 16 TO ACCOMMODATE PIG TRYPSIN
             except:
                 print(prot_string)
                 raise
