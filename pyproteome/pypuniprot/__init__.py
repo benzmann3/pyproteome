@@ -109,17 +109,18 @@ def prefetch_all_msf_uniprot():
         with sqlite3.connect(msf_path) as conn:
             cursor = conn.cursor()
 
+            # CHANGED
             vals = cursor.execute(
                 '''
                 SELECT
-                TargetProteins.Accession
+                TargetProteins.FastaTitleLines 
                 FROM
                 TargetProteins
                 '''
             )
             
             accessions.update(
-                RE_DISCOVERER_ACCESSION.match(prot_string).group(2)
+                RE_DISCOVERER_ACCESSION.match(prot_string).group(1) # CHANGED
                 for (prot_string,) in vals
             )
 
