@@ -111,9 +111,9 @@ def prefetch_all_msf_uniprot():
             vals = cursor.execute(
                 '''
                 SELECT
-                ProteinAnnotations.Description
+                TargetProteins.FastaTitleLine
                 FROM
-                ProteinAnnotations
+                TargetProteins
                 '''
             )
 
