@@ -111,7 +111,7 @@ def prefetch_all_msf_uniprot():
             vals = cursor.execute(
                 '''
                 SELECT
-                TargetProteins.FastaTitleLine
+                TargetProteins.Accession
                 FROM
                 TargetProteins
                 '''
