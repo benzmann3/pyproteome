@@ -118,9 +118,14 @@ def prefetch_all_msf_uniprot():
             )
 
             accessions.update(
-                RE_DISCOVERER_ACCESSION.match(prot_string).group(1)
-                for (prot_string,) in vals
+                RE_ACCESSION.match(accession).group(1)
+                for (accession,) in vals
             )
+            
+            #accessions.update(
+            #    RE_DISCOVERER_ACCESSION.match(prot_string).group(1)
+            #    for (prot_string,) in vals
+            #)
 
     fetch_uniprot_data(accessions)
 
