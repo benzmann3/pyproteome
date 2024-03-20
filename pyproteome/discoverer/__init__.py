@@ -368,7 +368,7 @@ def _get_proteins(df, cursor, pd_version):
             
             try:
                 matches = pypuniprot.RE_DISCOVERER_ACCESSION.match(fasta_line)
-                acc = matches.group(13) or matches.group(5) or matches.group(14)
+                acc = matches.group(12) or matches.group(14) or matches.group(15) #CHANGED
                 accessions[peptide_id].append(acc)
                 if not acc:
                     print(acc)
