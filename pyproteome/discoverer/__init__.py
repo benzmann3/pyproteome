@@ -36,6 +36,7 @@ RE_GENE_BACKUP = re.compile(
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'    # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
+    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
     r' ?([\dA-Za-z_\:\-]+) ')
 RE_DESCRIPTION = re.compile(
     r'^'
@@ -385,7 +386,7 @@ def _get_proteins(df, cursor, pd_version):
                     gene = gene.group(1)
                 else:
                     matches = RE_GENE_BACKUP.match(prot_string)
-                    gene = matches.group(13) # CHANGED TO GROUP 13 TO ACCOMMODATE PIG TRYPSIN
+                    gene = matches.group(15) # CHANGED TO GROUP 15 TO ACCOMMODATE PIG TRYPSIN AND ADDING TR
                     # print(prot_string, gene, matches.groups())
             except:
                 print(prot_string)
