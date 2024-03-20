@@ -362,7 +362,7 @@ def _get_proteins(df, cursor, pd_version):
         if prot_string.startswith('>'):
             prot_string = prot_string[1:]
         
-        for fasta_line in prot_string.split('|'):
+        for fasta_line in prot_string.split('\n'):
             if fasta_line.startswith('>'):
                 fasta_line = fasta_line[1:]
             
