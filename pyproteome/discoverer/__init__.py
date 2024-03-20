@@ -45,8 +45,8 @@ RE_DESCRIPTION = re.compile(
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|[\dA-Za-z\-]+\|)?'
-    r' ?[\dA-Za-z_\-\:]+ (.+?)( OS=| GN=| PE=| SV=| \[|$)'
-)
+    r' ?[\dA-Za-z_\-\:]+ (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
+) # ADDED SUPPORT FOR OX=|
 CONFIDENCE_MAPPING = {1: 'Low', 2: 'Medium', 3: 'High'}
 PD1_SUPPORTED_VERSIONS = [(1, 4)]
 PD2_SUPPORTED_VERSIONS = [(2, 2), (2, 3), (2, 4), (2, 5)]
