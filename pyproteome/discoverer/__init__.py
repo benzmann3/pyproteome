@@ -46,8 +46,8 @@ RE_DESCRIPTION = re.compile(
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|[\dA-Za-z\-]+\|)?'
     r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
-    r' ?[\dA-Za-z_\-\:]+ (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
-) # ADDED SUPPORT FOR OX=|
+    r' ?[\dA-Za-z_\-\:]+(?:_[\dA-Za-z]+)? (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
+) # ADDED SUPPORT FOR OX=|, pig trypsin
 CONFIDENCE_MAPPING = {1: 'Low', 2: 'Medium', 3: 'High'}
 PD1_SUPPORTED_VERSIONS = [(1, 4)]
 PD2_SUPPORTED_VERSIONS = [(2, 2), (2, 3), (2, 4), (2, 5)]
