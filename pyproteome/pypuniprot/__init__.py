@@ -25,6 +25,7 @@ RE_DISCOVERER_ACCESSION = re.compile(
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|([\dA-Za-z\-]+)\|)?'
+    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
     r' ?([\dA-Za-z_\:\-]+) .+$'
 )
 
