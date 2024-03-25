@@ -38,17 +38,24 @@ RE_GENE_BACKUP = re.compile(
     r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'    # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
     r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
     r' ?([\dA-Za-z_\:\-]+) ')
+#RE_DESCRIPTION = re.compile(
+#    r'^'
+#    r'(gi\|[\dA-Za-z]+\|)?'
+#    r'(uc\|(([\dA-Za-z]+)\|)?([\dA-Za-z\.]+\|)?)?'
+#    r'(ref\|([\dA-Za-z\._]+)\|)?'
+#    r'(gb\|([\dA-Za-z\._]+)\|)?'
+#    r'(gnl\|[\dA-Za-z]+\|)?'
+#    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?' # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
+#    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
+#    r' ?[\dA-Za-z_\-\:]+(?:_[\dA-Za-z]+)? (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
+#) # ADDED SUPPORT FOR OX=|, pig trypsin
 RE_DESCRIPTION = re.compile(
     r'^'
-    r'(gi\|[\dA-Za-z]+\|)?'
-    r'(uc\|(([\dA-Za-z]+)\|)?([\dA-Za-z\.]+\|)?)?'
-    r'(ref\|([\dA-Za-z\._]+)\|)?'
-    r'(gb\|([\dA-Za-z\._]+)\|)?'
-    r'(gnl\|[\dA-Za-z]+\|)?'
-    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?' # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
-    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
-    r' ?[\dA-Za-z_\-\:]+(?:_[\dA-Za-z]+)? (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
-) # ADDED SUPPORT FOR OX=|, pig trypsin
+    r'.*? '  # Match any characters lazily until the first space
+    r'(.+?)'  # Capture the description part lazily
+    r' OS='  # Match " OS=" to indicate the end of the description
+)
+
 CONFIDENCE_MAPPING = {1: 'Low', 2: 'Medium', 3: 'High'}
 PD1_SUPPORTED_VERSIONS = [(1, 4)]
 PD2_SUPPORTED_VERSIONS = [(2, 2), (2, 3), (2, 4), (2, 5)]
