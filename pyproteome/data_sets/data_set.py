@@ -187,7 +187,7 @@ class DataSet:
 
         species, lst = set(), []
 
-        if search_name and not skip_load:
+        if search_name is not None and not skip_load:
             # EDITED FOR SELF.SPECIES
             self.psms, self.species, lst = pyp.loading.load_psms(
                 search_name,
