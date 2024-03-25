@@ -188,7 +188,8 @@ class DataSet:
         species, lst = set(), []
 
         if search_name and not skip_load:
-            self.psms, species, lst = pyp.loading.load_psms(
+            # EDITED FOR SELF.SPECIES
+            self.psms, self.species, lst = pyp.loading.load_psms(
                 search_name,
                 pick_best_psm=pick_best_psm,
             )
@@ -206,7 +207,8 @@ class DataSet:
         self.name = name
         self.levels = None
         self.search_name = search_name
-        self.species = species
+        # EDITED FOR EARLIER DATA ENTRY
+        # self.species = species
 
         self.intra_normalized = False
         self.inter_normalized = False
