@@ -405,7 +405,7 @@ def _get_proteins(df, cursor, pd_version):
             try:
                 matches = RE_DESCRIPTION.match(prot_string)
                 desc = RE_DESCRIPTION.match(prot_string)
-                desc = desc.group(16) # CHANGED TO GROUP 16 TO ACCOMMODATE PIG TRYPSIN
+                desc = desc.group(1) # CHANGED TO GROUP 1 # CHANGED TO GROUP 16 TO ACCOMMODATE PIG TRYPSIN
             except:
                 print(prot_string)
                 raise
