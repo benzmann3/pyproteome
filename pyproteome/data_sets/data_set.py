@@ -241,6 +241,9 @@ class DataSet:
             if pd.isnull(self.psms[list(self.channels.values())]).all().all():
                 del filter_bad['median_quant']
 
+        print('TEST 3:') 
+        print(self.psms.head()) # TEST
+        
         if not skip_logging:
             self.log_stats()
 
