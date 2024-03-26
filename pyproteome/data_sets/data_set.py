@@ -298,6 +298,9 @@ class DataSet:
         if not skip_logging:
             self.log_stats()
 
+        print('TEST 4, end INIT:') 
+        print(self.psms.head()) # TEST
+
     def copy(self):
         '''
         Make a copy of self.
