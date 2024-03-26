@@ -30,6 +30,8 @@ import pyproteome as pyp
 
 
 LOGGER = logging.getLogger('pyproteome.data_sets')
+# ADDED AS TEST
+LOGGER.setLevel(logging.INFO)
 
 #:
 DEFAULT_FILTER_BAD = dict(
