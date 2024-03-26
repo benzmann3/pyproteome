@@ -199,16 +199,9 @@ class DataSet:
             self.psms = pd.DataFrame(
                 columns=DATA_SET_COLS + list(self.channels.values()),
             )
-
-        print('TEST 1:') 
-        print(self.psms.head()) # TEST
         
-        # EDITED TO PROPERLY EVALUATE USER PSM LOADING
-        if psms is not None:
+        if psms:
             self.add_peptide(psms)
-
-        print('TEST 2:') 
-        print(self.psms.head()) # TEST
         
         self.name = name
         self.levels = None
@@ -241,8 +234,8 @@ class DataSet:
             if pd.isnull(self.psms[list(self.channels.values())]).all().all():
                 del filter_bad['median_quant']
 
-        print('TEST 3:') 
-        print(self.psms.head()) # TEST
+        # print('TEST 3:') 
+        # print(self.psms.head()) # TEST
         
         if not skip_logging:
             self.log_stats()
@@ -258,8 +251,8 @@ class DataSet:
             )
             self.log_stats()
 
-        print('TEST 4 AFTER FILTER:') 
-        print(self.psms.head()) # TEST
+        # print('TEST 4 AFTER FILTER:') 
+        # print(self.psms.head()) # TEST
         
         if pick_best_psm and (
             not search_name or
@@ -272,8 +265,8 @@ class DataSet:
             )
             self._pick_best_psm()
         
-        print('TEST 5 AFTER PICK BEST:') 
-        print(self.psms.head()) # TEST
+        # print('TEST 5 AFTER PICK BEST:') 
+        # print(self.psms.head()) # TEST
         
         if constand_norm:
             channels = list(self.channels.values())
@@ -304,8 +297,8 @@ class DataSet:
         if not skip_logging:
             self.log_stats()
 
-        print('TEST 6, end INIT, AFTER MERGE:') 
-        print(self.psms.head()) # TEST
+        # print('TEST 6, end INIT, AFTER MERGE:') 
+        # print(self.psms.head()) # TEST
 
     def copy(self):
         '''
