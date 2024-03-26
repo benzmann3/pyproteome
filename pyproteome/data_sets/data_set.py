@@ -200,11 +200,16 @@ class DataSet:
                 columns=DATA_SET_COLS + list(self.channels.values()),
             )
 
+        print('TEST 1:') 
         print(self.psms.head()) # TEST
+        
         # EDITED TO PROPERLY EVALUATE USER PSM LOADING
         if psms is not None:
             self.add_peptide(psms)
 
+        print('TEST 2:') 
+        print(self.psms.head()) # TEST
+        
         self.name = name
         self.levels = None
         self.search_name = search_name
