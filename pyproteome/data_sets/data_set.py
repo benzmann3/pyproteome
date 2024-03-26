@@ -258,6 +258,9 @@ class DataSet:
             )
             self.log_stats()
 
+        print('TEST 4 AFTER FILTER:') 
+        print(self.psms.head()) # TEST
+        
         if pick_best_psm and (
             not search_name or
             os.path.splitext(search_name)[1] != '.msf' or
@@ -268,7 +271,10 @@ class DataSet:
                 .format(self.name)
             )
             self._pick_best_psm()
-
+        
+        print('TEST 5 AFTER PICK BEST:') 
+        print(self.psms.head()) # TEST
+        
         if constand_norm:
             channels = list(self.channels.values())
 
@@ -298,7 +304,7 @@ class DataSet:
         if not skip_logging:
             self.log_stats()
 
-        print('TEST 4, end INIT:') 
+        print('TEST 6, end INIT, AFTER MERGE:') 
         print(self.psms.head()) # TEST
 
     def copy(self):
