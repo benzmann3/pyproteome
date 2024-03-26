@@ -12,6 +12,7 @@ from collections import OrderedDict
 import copy
 import logging
 import os
+import sys # ADDED
 import re
 import warnings
 from itertools import chain
@@ -28,8 +29,9 @@ from . import modification, protein, sequence, constand
 
 import pyproteome as pyp
 
+# ADDED
 logging.basicConfig(format='%(asctime)s | %(levelname)s : %(message)s',
-                     level=logging.INFO, stream=sys.stdout)
+                     level=logging.INFO, stream=sys.stdout)  
 
 LOGGER = logging.getLogger('pyproteome.data_sets')
 # ADDED AS TEST
