@@ -33,7 +33,7 @@ LOGGER = logging.getLogger('pyproteome.data_sets')
 
 #:
 DEFAULT_FILTER_BAD = dict(
-    ion_score=15,
+    #ion_score=15, REMOVED FOR NOW
     isolation=30,
     median_quant=1.5e3,
     q=1e-2,
