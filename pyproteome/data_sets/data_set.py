@@ -28,6 +28,8 @@ from . import modification, protein, sequence, constand
 
 import pyproteome as pyp
 
+logging.basicConfig(format='%(asctime)s | %(levelname)s : %(message)s',
+                     level=logging.INFO, stream=sys.stdout)
 
 LOGGER = logging.getLogger('pyproteome.data_sets')
 # ADDED AS TEST
