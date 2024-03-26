@@ -200,6 +200,7 @@ class DataSet:
                 columns=DATA_SET_COLS + list(self.channels.values()),
             )
 
+        print(self.psms.head()) # TEST
         # EDITED TO PROPERLY EVALUATE USER PSM LOADING
         if psms is not None:
             self.add_peptide(psms)
