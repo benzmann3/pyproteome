@@ -775,7 +775,9 @@ def _get_quantifications(df, cursor, pd_version, tag_names):
 
     # Use the dictionary to get tag names instead of index-based lookup
     col_names = [channel_id_to_tag[cid] for cid in channel_ids]
-    
+
+    print("Channel IDs:", channel_ids)
+    print("Column names (tag names):", col_names)
     # col_names = [tag_names[channel_id - 1] for channel_id in channel_ids]
 
     def _get_quants(row):
