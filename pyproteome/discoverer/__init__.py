@@ -36,7 +36,7 @@ RE_GENE_BACKUP = re.compile(
     r'(gb\|([\dA-Za-z\._]+)\|)?'
     r'(gnl\|[\dA-Za-z]+\|)?'
     r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'    # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
-    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
+    r'(tr\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?)?'  # Adding the pattern for 'tr|...': replaced tr\|([\dA-Za-z]+)\|)?
     r' ?([\dA-Za-z_\:\-]+) ')
 #RE_DESCRIPTION = re.compile(
 #    r'^'
