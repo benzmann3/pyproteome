@@ -745,6 +745,21 @@ def _get_quantifications(df, cursor, pd_version, tag_names):
             QuanSpectrumInfoTargetPsms.TargetPsmsPeptideID
             ''',
         )
+        
+        # First, build the mapping from channel_id to tag_name
+        quantification = cursor.execute(
+            "SELECT AnalysisDefinitionXML FROM AnalysisDefinition"
+        ).fetchone()
+        if quantification:
+            xml_str = quantification[0]
+            root = ET.fromstring(xml_str)
+            quant_tags = root.findall(
+                'StudyDefinition/QuanMethods/QuanMethod/QuanChannels/QuanChannel'
+            )
+            channel_id_to_tag = {int(i.get('Id')): i.get('Name') for i in quant_tags}
+        else:
+            raise Exception('Cannot find AnalysisDefinitionXML')
+
     else:
         raise Exception(
             'Unsupported Proteome Discoverer Version: {}'.format(pd_version)
@@ -758,7 +773,10 @@ def _get_quantifications(df, cursor, pd_version, tag_names):
 
     channel_ids = sorted(set(i[1] for i in mapping.keys()))
 
-    col_names = [tag_names[channel_id - 1] for channel_id in channel_ids]
+    # Use the dictionary to get tag names instead of index-based lookup
+    col_names = [channel_id_to_tag[cid] for cid in channel_ids]
+    
+    # col_names = [tag_names[channel_id - 1] for channel_id in channel_ids]
 
     def _get_quants(row):
         peptide_id = row.name
