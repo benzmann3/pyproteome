@@ -405,12 +405,12 @@ def _get_proteins(df, cursor, pd_version):
                     gene = gene.group(1)
                 else:
                     matches = RE_GENE_BACKUP.match(prot_string)
-                        if matches:
-                            # take the first non-None group
-                            gene = next(g for g in matches.groups() if g)
-                        else:
-                            print("No match:", prot_string)
-                            gene = None
+                    if matches:
+                        # take the first non-None group
+                        gene = next(g for g in matches.groups() if g)
+                    else:
+                        print("No match:", prot_string)
+                        gene = None
                     # matches = RE_GENE_BACKUP.match(prot_string)
                     # gene = matches.group(15) # CHANGED TO GROUP 15 TO ACCOMMODATE PIG TRYPSIN AND ADDING TR
                     # print(prot_string, gene, matches.groups())
