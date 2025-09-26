@@ -411,8 +411,8 @@ def _get_proteins(df, cursor, pd_version):
                         else:
                             print("No match:", prot_string)
                             gene = None
-                    #matches = RE_GENE_BACKUP.match(prot_string)
-                    #gene = matches.group(15) # CHANGED TO GROUP 15 TO ACCOMMODATE PIG TRYPSIN AND ADDING TR
+                    # matches = RE_GENE_BACKUP.match(prot_string)
+                    # gene = matches.group(15) # CHANGED TO GROUP 15 TO ACCOMMODATE PIG TRYPSIN AND ADDING TR
                     # print(prot_string, gene, matches.groups())
             except:
                 print(prot_string)
