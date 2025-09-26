@@ -28,16 +28,28 @@ RE_GENE = re.compile(
     r'.*'
     r' GN=([A-Za-z0-9_\-]+)( \w+)?'
 )
+
 RE_GENE_BACKUP = re.compile(
-    r'^'
-    r'(gi\|[\dA-Za-z]+\|)?'
-    r'(uc\|(([\dA-Za-z]+)\|)?([\dA-Za-z\.]+\|)?)?'
-    r'(ref\|([\dA-Za-z\._]+)\|)?'
-    r'(gb\|([\dA-Za-z\._]+)\|)?'
-    r'(gnl\|[\dA-Za-z]+\|)?'
-    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'    # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
-    r'(tr\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'  # Adding the pattern for 'tr|...': replaced tr\|([\dA-Za-z]+)\|)?
-    r' ?([\dA-Za-z_\:\-]+) ')
+    r'^(?:'
+    r'gi\|[\dA-Za-z]+\|)?'
+    r'(?:uc\|(?:[\dA-Za-z]+\|)?[\dA-Za-z\.]+\|)?'
+    r'(?:ref\|[\dA-Za-z\._]+\|)?'
+    r'(?:gb\|[\dA-Za-z\._]+\|)?'
+    r'(?:gnl\|[\dA-Za-z]+\|)?'
+    r'(?:sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'
+    r'(?:tr\|([\dA-Za-z]+)\|)?'
+    r'([\dA-Za-z_\:\-]+)'
+)
+#RE_GENE_BACKUP = re.compile(
+#    r'^'
+#    r'(gi\|[\dA-Za-z]+\|)?'
+#    r'(uc\|(([\dA-Za-z]+)\|)?([\dA-Za-z\.]+\|)?)?'
+#    r'(ref\|([\dA-Za-z\._]+)\|)?'
+#    r'(gb\|([\dA-Za-z\._]+)\|)?'
+#    r'(gnl\|[\dA-Za-z]+\|)?'
+#    r'(sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'    # (sp\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)? replaced (sp\|[\dA-Za-z\-]+\|)?
+#    r'(tr\|([\dA-Za-z]+(?:_[\dA-Za-z]+)?)\|)?'  # Adding the pattern for 'tr|...': replaced tr\|([\dA-Za-z]+)\|)?
+#    r' ?([\dA-Za-z_\:\-]+) ')
 #RE_DESCRIPTION = re.compile(
 #    r'^'
 #    r'(gi\|[\dA-Za-z]+\|)?'
