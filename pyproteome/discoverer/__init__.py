@@ -40,6 +40,8 @@ RE_GENE_BACKUP = re.compile(
     r'(?:tr\|([\dA-Za-z]+)\|)?'
     r'([\dA-Za-z_\:\-]+)'
 )
+
+# Info removed to relax REGEX instructions for lazy matching
 #RE_GENE_BACKUP = re.compile(
 #    r'^'
 #    r'(gi\|[\dA-Za-z]+\|)?'
@@ -61,6 +63,7 @@ RE_GENE_BACKUP = re.compile(
 #    r'(tr\|([\dA-Za-z]+)\|)?'  # Adding the pattern for 'tr|...'
 #    r' ?[\dA-Za-z_\-\:]+(?:_[\dA-Za-z]+)? (.+?)( OS=| OX=| GN=| PE=| SV=| \[|$)'
 #) # ADDED SUPPORT FOR OX=|, pig trypsin
+
 RE_DESCRIPTION = re.compile(
     r'^'
     r'.*? '  # Match any characters lazily until the first space
@@ -387,17 +390,23 @@ def _get_proteins(df, cursor, pd_version):
             if fasta_line.startswith('>'):
                 fasta_line = fasta_line[1:]
             
+            # Grab accession strings
             try:
                 matches = pypuniprot.RE_DISCOVERER_ACCESSION.match(fasta_line)
-                acc = matches.group(12) or matches.group(14) or matches.group(15) #CHANGED
-                accessions[peptide_id].append(acc)
-                if not acc:
-                    print(acc)
-                    print(fasta_line, accessions[peptide_id][-1], matches.groups())
+                if matches:
+                    # Pick the first non-None group that corresponds to an accession
+                    acc = next((g for g in matches.groups() if g is not None and ('_' in g or g.isalnum())), None)
+
+                else:
+                    print("No match:", fasta_line)
+                    acc = None
             except:
                 print(fasta_line)
                 raise
+            
+            accessions[peptide_id].append(acc)
 
+            # Grab gene names
             try:
                 gene = RE_GENE.match(prot_string)
 
@@ -411,24 +420,25 @@ def _get_proteins(df, cursor, pd_version):
                     else:
                         print("No match:", prot_string)
                         gene = None
-                    # matches = RE_GENE_BACKUP.match(prot_string)
-                    # gene = matches.group(15) # CHANGED TO GROUP 15 TO ACCOMMODATE PIG TRYPSIN AND ADDING TR
-                    # print(prot_string, gene, matches.groups())
             except:
                 print(prot_string)
                 raise
 
-            genes[peptide_id].append(
-                gene
-            )
+            genes[peptide_id].append(gene)
+
+            # Grab protein descriptions
             try:
-                matches = RE_DESCRIPTION.match(prot_string)
-                desc = RE_DESCRIPTION.match(prot_string)
-                desc = desc.group(1) # CHANGED TO GROUP 1 # CHANGED TO GROUP 16 TO ACCOMMODATE PIG TRYPSIN
+                match = RE_DESCRIPTION.match(prot_string)
+                if match:
+                    desc = match.group(1)  # Only call group if match succeeded
+                else:
+                    desc = None
+                    print("No description match:", prot_string)
             except:
                 print(prot_string)
                 raise
 
+            
             descriptions[peptide_id].append(desc)
             sequences[peptide_id].append(seq)
 
@@ -763,8 +773,8 @@ def _get_quantifications(df, cursor, pd_version, tag_names):
             ON TargetPsms.PeptideID=
             QuanSpectrumInfoTargetPsms.TargetPsmsPeptideID
             ''',
-        )
-        
+        ).fetchall()
+
         # First, build the mapping from channel_id to tag_name
         quantification = cursor.execute(
             "SELECT AnalysisDefinitionXML FROM AnalysisDefinition"
@@ -783,21 +793,18 @@ def _get_quantifications(df, cursor, pd_version, tag_names):
         raise Exception(
             'Unsupported Proteome Discoverer Version: {}'.format(pd_version)
         )
-
+    
     mapping = {
-        (peptide_id, channel_id): height
+        (int(peptide_id), channel_id): height
         for peptide_id, channel_id, height in vals
         if peptide_id in df.index
     }
 
-    channel_ids = sorted(set(i[1] for i in mapping.keys()))
-
-    # Use the dictionary to get tag names instead of index-based lookup
+    channel_ids = sorted(set(cid for _, cid in mapping.keys()))
+    
+    # Map to tag names using quant_tags
+    channel_id_to_tag = {int(i.get('Id')): i.get('Name') for i in quant_tags}
     col_names = [channel_id_to_tag[cid] for cid in channel_ids]
-
-    print("Channel IDs:", channel_ids)
-    print("Column names (tag names):", col_names)
-    # col_names = [tag_names[channel_id - 1] for channel_id in channel_ids]
 
     def _get_quants(row):
         peptide_id = row.name
@@ -1026,7 +1033,7 @@ def _get_q_values(df, cursor, pd_version):
             for index, val in q_vals
             if index in df.index
         ])
-
+        
         df.at[indices, 'q-value'] = vals
 
     return df
