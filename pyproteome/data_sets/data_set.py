@@ -590,16 +590,16 @@ class DataSet:
             ].iterrows():
                 # If that other peptide is a subset of this peptide, rename it
                 if o_row['Sequence'] in seq:
-                    # cols = [
-                    #     'Sequence',
-                    #     'Modifications',
-                    #     'Missed Cleavages',
-                    # ]
-                    # new.psms.at[o_index, cols] = row[cols]
+                     cols = [
+                         'Sequence',
+                         'Modifications',
+                         'Missed Cleavages',
+                     ]
+                     new.psms.loc[o_index, cols] = row[cols] # CHANGED 9/27/2025 from new.psms.at[o_index, cols] = row[cols]
                   # Assign values individually
-                    new.psms.at[o_index, 'Sequence'] = row['Sequence']
-                    new.psms.at[o_index, 'Modifications'] = row['Modifications']
-                    new.psms.at[o_index, 'Missed Cleavages'] = row['Missed Cleavages']
+                  #  new.psms.at[o_index, 'Sequence'] = row['Sequence']
+                  #  new.psms.at[o_index, 'Modifications'] = row['Modifications']
+                  #  new.psms.at[o_index, 'Missed Cleavages'] = row['Missed Cleavages']
 
         del new.psms['__sort__']
 
